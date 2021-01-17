@@ -1,13 +1,13 @@
-<img src="https://critimon.com/images/logo.png" width="150">
+<img src="https://crashcatch.com/images/logo.png" width="150">
 
 
 # Introduction
 The Android CritiMon library allows you to send both handled and
 unhandled crashes to the CritiMon Crash Monitoring service 
-(https://critimon.boardiesitsolutions.com). 
+(https://crashcatch.com). 
 
 # Installing
-The CritiMon android library, can be installed directly from 
+The Crash Catchandroid library, can be installed directly from 
 [GitHub](https://github.com) using [JitPack](https://jitpack.io). 
 
 In your build.gradle within your app module (not the project scope
@@ -21,18 +21,18 @@ repositories {
 Then in the dependencies section add the library as below:
 ```
 dependencies {
-        implementation 'com.github.BoardiesITSolutions:CritiMonLib-Android:TAG'
+        implementation 'com.github.CrashCatch:CrashCatchLib-Android:TAG'
     }
 ```
 
-Where TAG is the latest tagged release version number at https://github.com/BoardiesITSolutions/CritiMonLib-Android/releases.
+Where TAG is the latest tagged release version number at https://github.com/Crash-Catch/CrashCatchLib-Android/releases.
 
 You should then be able to start using the library. 
 
 # Using the Library
 If your android project has multiple different activities, then every
-activity will need to initialise CritiMon. Therefore the easiest thing to
-do is to create a class of type activity and set up the CritiMon library
+activity will need to initialise CrashCatch. Therefore the easiest thing to
+do is to create a class of type activity and set up the CrashCatch library
 in this class, and then in your main activity class(es) extend this new class. 
 
 An example is below:
@@ -41,12 +41,12 @@ BaseActivity.java
 ```
 class BaseActivity extends AppCompatActivity
 {
-    protected CritiMon;
+    protected CrashCatch;
     
     protected void onCreate(Bundle savedInstanceParams)
     {
         super.onCreate(savedInstanceState);
-        //Initialise CritiMon here
+        //Initialise Crash Catch here
     }
 }
 ``` 
@@ -63,10 +63,10 @@ class MainActivity extends BaseActivity
 }
 ```
 
-To initialise CritiMon you can do the following
+To initialise CrashCatch you can do the following
 
 ```
-CritiMon.Initialise(MainActivity.this, <api_key>, <app_id>, <app_version>);
+CrashCatch.Initialise(MainActivity.this, <api_key>, <app_id>, <app_version>);
 ```
 
 The `<api_key>` can be found from the settings page. There is a button next to the API key that
@@ -93,28 +93,27 @@ try
 }
 catch (NullPointerException ex)
 {
-    CritiMon.ReportCrash(ex, CritiMon.CrashSeverity.Medium);
+    CrashCatch.ReportCrash(ex, CrashCatch.CrashSeverity.Medium);
     //Send a basic key/value pair for extra debug information
-    CritiMon.ReportCrash(ex, CritiMon.CrashSeverity.Medium, "my_key", "my_value");
+    CrashCatch.ReportCrash(ex, CrashCatch.CrashSeverity.Medium, "my_key", "my_value");
     //Send a more complex JSON object for extra debug information
     JSONObject jsonObject = new JsonObject();
     jsonObject.put("Item 1", "Value 1");
     jsonObject.put("Item 2", "Value 2");
-    CritiMon.ReportCrash(ex, CritiMon.CrashSeverity.Medium, jsonObject);
+    CrashCatch.ReportCrash(ex, CrashCatch.CrashSeverity.Medium, jsonObject);
 }
 ```
 
-The following values are supported to be used for the second parameter to the `CritiMon.CrashSeverity`:
+The following values are supported to be used for the second parameter to the `CrashCatch.CrashSeverity`:
 * Low
 * Medium
-* Major
-* Critical
+* High
 
 If you send anything other than the above, you will get an error response
-back from CritiMon. 
+back from CrashCatch. 
 
-Sign up for a free account by visiting https://critimon.boardiesitsolutions.com
+Sign up for a free account by visiting https://crashcatch.com
 
-CritiMon - Copyright &copy; 2019 - Boardies IT Solutions
+CrashCatch - Copyright &copy; 2021 - Boardies IT Solutions
 
 <img src="https://boardiesitsolutions.com/images/logo.png"> 
