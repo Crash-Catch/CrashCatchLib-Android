@@ -13,13 +13,13 @@ import java.util.HashMap;
 /**
  * Copyright (C) Chris Board - Boardies IT Solutions
  * August 2019
- * https://critimon.com
+ * https://crashcatch.com
  * https://support.boardiesitsolutions.com
  */
 
 public class CrashCatch implements ICrashCatchResultHandler, IInternalCrashCatchResponseHandler
 {
-    protected static boolean CritiMonInitialised = false;
+    protected static boolean CrashCatchInitialised = false;
     protected static String SessionID ;
     protected static Context context;
 
@@ -72,7 +72,7 @@ public class CrashCatch implements ICrashCatchResultHandler, IInternalCrashCatch
             @Override
             public void uncaughtException(Thread thread, Throwable ex)
             {
-                Log.e("CritiMon", ((Exception) ex).toString(), ex);
+                Log.e("CrashCatch", ((Exception) ex).toString(), ex);
                 //CrashReporter.ReportUnhandledCrash(((Exception) ex));
                 new CrashManager().ReportCrash((Exception) ex, CrashSeverity.High, CrashManager.CrashType.Unhandled);
                 if (systemExceptionHandler != null)
@@ -121,7 +121,7 @@ public class CrashCatch implements ICrashCatchResultHandler, IInternalCrashCatch
             {
                 if (resultObj.getInt("result") == 0)
                 {
-                    CrashCatch.CritiMonInitialised = true;
+                    CrashCatch.CrashCatchInitialised = true;
 
                     if (CrashCatch.iCrashCatchResultHandler != null)
                     {
@@ -131,18 +131,18 @@ public class CrashCatch implements ICrashCatchResultHandler, IInternalCrashCatch
                 }
                 else
                 {
-                    Log.e("CritiMon", "Failed to initialise. Error: " + resultObj.getString("message"));
-                    CrashCatch.CritiMonInitialised = false;
+                    Log.e("CrashCatch", "Failed to initialise. Error: " + resultObj.getString("message"));
+                    CrashCatch.CrashCatchInitialised = false;
                 }
             }
             catch (JSONException e)
             {
-                Log.e("CritiMon", "Error processing response: " + e.toString());
+                Log.e("CrashCatch", "Error processing response: " + e.toString());
             }
         }
         else
         {
-            Log.e("CritiMon", "CritiMon process result returned empty json object");
+            Log.e("CrashCatch", "CrashCatch process result returned empty json object");
         }
     }
 }

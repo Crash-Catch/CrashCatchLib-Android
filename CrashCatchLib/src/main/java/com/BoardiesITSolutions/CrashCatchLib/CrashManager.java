@@ -17,7 +17,7 @@ import java.util.Locale;
 /**
  * Copyright (C) Chris Board - Boardies IT Solutions
  * August 2019
- * https://critimon.com
+ * https://crashcatch.com
  * https://support.boardiesitsolutions.com
  */
 
@@ -86,7 +86,7 @@ class CrashManager implements ICrashCatchResultHandler, IInternalCrashCatchRespo
         }
         catch (InvalidCrashSeverityException e)
         {
-            Log.e("CritiMon", e.toString());
+            Log.e("CrashCatch", e.toString());
         }
     }
 
@@ -100,7 +100,7 @@ class CrashManager implements ICrashCatchResultHandler, IInternalCrashCatchRespo
         }
         catch (JSONException ex1)
         {
-            Log.e("CritiMonCrashManager", ex1.toString());
+            Log.e("CrashCatch", ex1.toString());
         }
     }
 
@@ -114,7 +114,7 @@ class CrashManager implements ICrashCatchResultHandler, IInternalCrashCatchRespo
         }
         catch (JSONException ex1)
         {
-            Log.e("CritiMonCrashManager", ex1.toString());
+            Log.e("CrashCatch", ex1.toString());
         }
     }
 
@@ -137,7 +137,7 @@ class CrashManager implements ICrashCatchResultHandler, IInternalCrashCatchRespo
         }
         catch (InvalidCrashSeverityException e)
         {
-            Log.e("CritiMon", e.toString());
+            Log.e("CrashCatch", e.toString());
         }
     }
 
@@ -193,7 +193,7 @@ class CrashManager implements ICrashCatchResultHandler, IInternalCrashCatchRespo
 
     private void addDeviceDataToPostFields()
     {
-        if (CrashCatch.CritiMonInitialised)
+        if (CrashCatch.CrashCatchInitialised)
         {
             try
             {
@@ -228,7 +228,7 @@ class CrashManager implements ICrashCatchResultHandler, IInternalCrashCatchRespo
         }
         else
         {
-            Log.e("CritiMon", "CritiMon not initialised. Call CritiMon.Initialise(context, api_key, app_id) before sending a crash");
+            Log.e("CrashCatch", "CrashCatch not initialised. Call CrashCatch.Initialise(context, api_key, app_id) before sending a crash");
         }
     }
 
@@ -255,7 +255,7 @@ class CrashManager implements ICrashCatchResultHandler, IInternalCrashCatchRespo
         try
         {
 
-            if (CrashCatch.CritiMonInitialised)
+            if (CrashCatch.CrashCatchInitialised)
             {
                 postData.put("APIKey", CrashCatch.APIKey);
                 postData.put("ProjectID", CrashCatch.ProjectID);
@@ -264,12 +264,12 @@ class CrashManager implements ICrashCatchResultHandler, IInternalCrashCatchRespo
             }
             else
             {
-                Log.e("CritiMon", "CritiMon not initialised. Call CritiMon.Initialise(context, api_key, app_id) before sending a crash");
+                Log.e("CrashCatch", "CrashCatch not initialised. Call CrashCatch.Initialise(context, api_key, app_id) before sending a crash");
             }
         }
         catch (NullPointerException ex)
         {
-            Log.e("CritiMon-CrashManager", ex.toString());
+            Log.e("CrashCatch-CrashManager", ex.toString());
         }
     }
 
@@ -278,7 +278,7 @@ class CrashManager implements ICrashCatchResultHandler, IInternalCrashCatchRespo
     {
         if (resultObj != null)
         {
-            Log.d("CritiMon", resultObj.toString());
+            Log.d("CrashCatch", resultObj.toString());
 
             try
             {
@@ -286,7 +286,7 @@ class CrashManager implements ICrashCatchResultHandler, IInternalCrashCatchRespo
                 {
                     //Check was the library initialised already, if so, then probably nothing happened with this user
                     //for a while so engine removed session. Reinitialise and create a new session
-                    if (CrashCatch.CritiMonInitialised)
+                    if (CrashCatch.CrashCatchInitialised)
                     {
                         //Only attempt to reinitalise 3 times, make sure we don't get stuck in a loop.
                         if (initialiseRetryCount < 3)
@@ -306,17 +306,17 @@ class CrashManager implements ICrashCatchResultHandler, IInternalCrashCatchRespo
                 }
                 else
                 {
-                    Log.e("CritiMon", resultObj.getString("message"));
+                    Log.e("CrashCatch", resultObj.getString("message"));
                 }
             }
             catch (JSONException e)
             {
-                Log.e("CritiMon", e.toString());
+                Log.e("CrashCatch", e.toString());
             }
         }
         else
         {
-            Log.d("CritiMon", "No json response");
+            Log.d("CrashCatch", "No json response");
         }
     }
 }

@@ -8,14 +8,14 @@ import java.util.Random;
 /**
  * Copyright (C) Chris Board - Boardies IT Solutions
  * August 2019
- * https://critimon.com
+ * https://crashcatch.com
  * https://support.boardiesitsolutions.com
  */
 public class Helpers
 {
     public static String getDeviceUID(Context context)
     {
-        SharedPreferences settings = context.getSharedPreferences("critimon_preferences", 0);
+        SharedPreferences settings = context.getSharedPreferences("crashcatch_preferences", 0);
 
         if (settings.contains("device_uid"))
         {

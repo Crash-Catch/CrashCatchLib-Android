@@ -15,7 +15,7 @@ import java.util.*;
 /**
  * Copyright (C) Chris Board - Boardies IT Solutions
  * August 2019
- * https://critimon.com
+ * https://crashcatch.com
  * https://support.boardiesitsolutions.com
  */
 public class APIHandler extends AsyncTask<HashMap<String, String>, Void, JSONObject>
@@ -80,7 +80,7 @@ public class APIHandler extends AsyncTask<HashMap<String, String>, Void, JSONObj
                 break;
         }
 
-        Log.d("CritiMon", "Using URL: " + serverURL);
+        Log.d("CrashCatch", "Using URL: " + serverURL);
         String authorisationToken = "";
 
         FormBody.Builder formBuilder = new FormBody.Builder();
@@ -107,7 +107,7 @@ public class APIHandler extends AsyncTask<HashMap<String, String>, Void, JSONObj
 
         Headers.Builder headerBuilder = new Headers.Builder();
         headerBuilder.add("Authorisation-Token", authorisationToken);
-        headerBuilder.add("User-Agent", "CritiMon Android Library");
+        headerBuilder.add("User-Agent", "CrashCatch Android Library");
         if ((sessionID != null) && !sessionID.isEmpty() )
         {
             headerBuilder.add("Cookie", "SESSIONID=" + sessionID);
@@ -164,7 +164,7 @@ public class APIHandler extends AsyncTask<HashMap<String, String>, Void, JSONObj
 
             String responseBody = response.body().string();
             response.close();
-            Log.d("CritiMon", "Response: " + responseBody);
+            Log.d("CrashCatch", "Response: " + responseBody);
 
             if ((responseBody != null) && !responseBody.isEmpty())
             {
@@ -252,7 +252,7 @@ public class APIHandler extends AsyncTask<HashMap<String, String>, Void, JSONObj
         }
         else
         {
-            Log.d("CritiMon", "Session ID not found in cookie string");
+            Log.d("CrashCatch", "Session ID not found in cookie string");
         }
 
         if (!nameAndValueString.isEmpty())
@@ -264,7 +264,7 @@ public class APIHandler extends AsyncTask<HashMap<String, String>, Void, JSONObj
             }
             else
             {
-                Log.d("CritiMon", "SESSIONID looks to be blank");
+                Log.d("CrashCatch", "SESSIONID looks to be blank");
             }
         }
     }
@@ -283,7 +283,7 @@ public class APIHandler extends AsyncTask<HashMap<String, String>, Void, JSONObj
         }
         else
         {
-            Log.d("CritiMon", "DO-LB not found in cookie string");
+            Log.d("CrashCatch", "DO-LB not found in cookie string");
         }
 
         if (!nameAndValueString.isEmpty())
@@ -295,7 +295,7 @@ public class APIHandler extends AsyncTask<HashMap<String, String>, Void, JSONObj
             }
             else
             {
-                Log.d("CritiMon", "DO-LB looks to be blank");
+                Log.d("CrashCatch", "DO-LB looks to be blank");
             }
         }
     }
