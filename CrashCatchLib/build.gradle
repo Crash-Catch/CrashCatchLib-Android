@@ -1,0 +1,122 @@
+buildscript {
+    repositories {
+        if (rootProject.ext.publishToMavenLocal) {
+            mavenLocal()
+        }
+    }
+    dependencies {
+        'com.android.tools.build:gradle:5.1.1'
+    }
+}
+def libBuildType
+
+apply plugin: 'com.android.library'
+if (rootProject.ext.publishToMavenLocal) {
+    apply plugin: 'maven-publish'
+}
+else
+{
+    apply plugin: 'com.github.dcendents.android-maven'
+}
+
+archivesBaseName="CrashCatchLib"
+version '1.1'
+group 'com.BoardiesITSolutions'
+
+android {
+    compileSdkVersion 29
+
+    packagingOptions {
+        exclude 'META-INF/LICENSE.txt'
+        exclude 'META-INF/NOTICE.txt'
+    }
+
+    defaultConfig {
+        //applicationId "com.BoardiesITSolutions.Library"
+        minSdkVersion 17
+        targetSdkVersion 29
+        versionCode 2
+        versionName = '1.1'
+    }
+
+    flavorDimensions "debug", "release"
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
+            debuggable false
+        }
+    }
+
+    lintOptions {
+        abortOnError false
+    }
+    compileOptions {
+        sourceCompatibility = 1.8
+        targetCompatibility = 1.8
+    }
+    buildToolsVersion = '29.0.3'
+
+    if (rootProject.ext.publishToMavenLocal)
+    {
+        android.libraryVariants
+
+        publishing {
+            publications {
+                maven(MavenPublication)
+                        {
+                            artifact getArtifactFullPath()
+                        }
+            }
+        }
+
+        libraryVariants.all { variant ->
+            logger.debug("Setting build to be {}", variant.buildType.name)
+            libBuildType = variant.buildType.name
+            logger.info("libBuildType is set to {}", libBuildType)
+            variant.outputs.all { output ->
+                def outputFile = output.outputFile
+                if (outputFile != null && outputFile.name.endsWith('.aar'))
+                {
+                    //def fileName = "${archivesBaseName}-${version}.aar"
+                    def fileName = "${archivesBaseName}-debug.aar"
+                    outputFileName = fileName
+                }
+            }
+        }
+
+        /*libraryVariants.all { variant ->
+            variant.outputs.any { output ->
+                def outputFile = output.outputFile
+                if (outputFile != null && outputFile.name.endsWith('.aar'))
+                {
+                    def fileName = "${archivesBaseName}-${version}.aar"
+                    outputFileName = fileName
+                }
+            }
+        }*/
+    }
+
+
+
+    repositories {
+        if (rootProject.ext.publishToMavenLocal) {
+            mavenLocal()
+        }
+        jcenter()
+        maven {
+            url "https://maven.google.com"
+        }
+    }
+}
+
+def getArtifactFullPath() {
+    return ".//build/outputs/aar/${archivesBaseName}-debug.aar"
+}
+
+dependencies {
+    //compile 'org.jbundle.util.osgi.wrapped:org.jbundle.util.osgi.wrapped.org.apache.http.client:4.1.2'
+    implementation 'com.squareup.okhttp3:okhttp:4.5.0'
+    implementation 'com.squareup.okio:okio:2.6.0'
+}
