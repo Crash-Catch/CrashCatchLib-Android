@@ -7,7 +7,7 @@ unhandled crashes to the CrashCatch Crash Monitoring service
 (https://crashcatch.com). 
 
 # Installing
-The Crash Catchandroid library, can be installed directly from 
+The Crash Catch android library, can be installed directly from 
 [GitHub](https://github.com) using [JitPack](https://jitpack.io). 
 
 In your build.gradle within your app module (not the project scope
