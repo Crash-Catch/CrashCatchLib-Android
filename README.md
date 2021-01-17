@@ -2,8 +2,8 @@
 
 
 # Introduction
-The Android CritiMon library allows you to send both handled and
-unhandled crashes to the CritiMon Crash Monitoring service 
+The Android CrashCatch library allows you to send both handled and
+unhandled crashes to the CrashCatch Crash Monitoring service 
 (https://crashcatch.com). 
 
 # Installing
@@ -21,7 +21,7 @@ repositories {
 Then in the dependencies section add the library as below:
 ```
 dependencies {
-        implementation 'com.github.CrashCatch:CrashCatchLib-Android:TAG'
+        implementation 'com.github.Crash-Catch:CrashCatchLib-Android:TAG'
     }
 ```
 
