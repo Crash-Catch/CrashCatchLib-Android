@@ -83,7 +83,7 @@ public class APIHandler extends AsyncTask<HashMap<String, String>, Void, JSONObj
         Log.d("CrashCatch", "Using URL: " + serverURL);
         String authorisationToken = "";
 
-        FormBody.Builder formBuilder = new FormBody.Builder();
+        /*FormBody.Builder formBuilder = new FormBody.Builder();
 
 
         Iterator it = postData.entrySet().iterator();
@@ -100,9 +100,20 @@ public class APIHandler extends AsyncTask<HashMap<String, String>, Void, JSONObj
             }
 
 
+        }*/
+
+        Iterator<Map.Entry<String, String>> it = postData.entrySet().iterator();
+        while (it.hasNext())
+        {
+            Map.Entry pair = (Map.Entry)it.next();
+            if (pair.getKey().equals(("APIKey")))
+            {
+                authorisationToken = pair.getValue().toString();
+            }
         }
 
-        RequestBody body = formBuilder.build();
+        JSONObject jsonData = new JSONObject(postData);
+        //RequestBody body = formBuilder.build();
 
 
         Headers.Builder headerBuilder = new Headers.Builder();
@@ -119,6 +130,8 @@ public class APIHandler extends AsyncTask<HashMap<String, String>, Void, JSONObj
         headerBuilder.add("Connection", "close");
 
         Headers headers = headerBuilder.build();
+
+        RequestBody body = RequestBody.create(MediaType.parse("application/json; charset=utf-8"), jsonData.toString());
 
         Request request = new Request.Builder()
                 //.addHeader("Authorisation-Token", authorisationToken)

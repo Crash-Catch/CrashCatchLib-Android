@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/CrashCatchLib/CrashCatchLib.iml" filepath="$PROJECT_DIR$/CrashCatchLib/CrashCatchLib.iml" group="CrashCatchLib-Android/CrashCatchLib" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/CrashCatchLib-Android.iml" filepath="$PROJECT_DIR$/.idea/modules/CrashCatchLib-Android.iml" group="CrashCatchLib-Android" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/CrashCatchLib-Android.iml" filepath="$PROJECT_DIR$/.idea/modules/CrashCatchLib-Android.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/CrashCatchLib/CrashCatchLib-Android.CrashCatchLib.iml" filepath="$PROJECT_DIR$/.idea/modules/CrashCatchLib/CrashCatchLib-Android.CrashCatchLib.iml" />
     </modules>
   </component>
 </project>
