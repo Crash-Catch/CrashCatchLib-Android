@@ -2,7 +2,7 @@
 buildscript {
 
     ext {
-        publishToMavenLocal = true
+        publishToMavenLocal = false
     }
 
     repositories {
