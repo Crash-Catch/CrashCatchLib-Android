@@ -56,7 +56,7 @@ public class APIHandler extends AsyncTask<HashMap<String, String>, Void, JSONObj
         //If the server URL is just a slash, it means the app hasn't tried to override (only done by Boardies IT Solutions)
         if (serverURL.equals("/"))
         {
-            serverURL = "https://engine.crashcatch.com/";
+            serverURL = "https://engine.crashcatch.com/api/";
         }
 
         HashMap<String, String> postData = lists[0];
