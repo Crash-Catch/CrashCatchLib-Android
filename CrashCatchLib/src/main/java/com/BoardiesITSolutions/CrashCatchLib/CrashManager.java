@@ -42,7 +42,7 @@ class CrashManager implements ICrashCatchResultHandler, IInternalCrashCatchRespo
     @Override
     public void retryInitialisation()
     {
-        CrashCatch.Initialise(CrashCatch.context, CrashCatch.APIKey, CrashCatch.ProjectID, CrashCatch.AppVersion);
+        CrashCatch.Initialise(CrashCatch.context, CrashCatch.APIKey, CrashCatch.ProjectID, CrashCatch.ProjectVersion);
     }
 
     protected enum CrashType {Handled, Unhandled}
@@ -292,7 +292,7 @@ class CrashManager implements ICrashCatchResultHandler, IInternalCrashCatchRespo
                         if (initialiseRetryCount < 3)
                         {
                             initialiseRetryCount++;
-                            CrashCatch.Initialise(CrashCatch.context, CrashCatch.APIKey, CrashCatch.ProjectID, CrashCatch.AppVersion, new ICrashCatchResultHandler()
+                            CrashCatch.Initialise(CrashCatch.context, CrashCatch.APIKey, CrashCatch.ProjectID, CrashCatch.ProjectVersion, new ICrashCatchResultHandler()
                             {
                                 @Override
                                 public void processResult(APIHandler.API_Call api_call, JSONObject resultObj)

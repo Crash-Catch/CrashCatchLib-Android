@@ -24,7 +24,7 @@ version '2.0.2'
 group 'com.BoardiesITSolutions'
 
 android {
-    compileSdkVersion 29
+    compileSdkVersion 31
 
     packagingOptions {
         exclude 'META-INF/LICENSE.txt'
@@ -51,6 +51,7 @@ android {
 
     lintOptions {
         abortOnError false
+        checkReleaseBuilds false
     }
     compileOptions {
         sourceCompatibility = 1.8

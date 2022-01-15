@@ -32,19 +32,19 @@ public class CrashCatch implements ICrashCatchResultHandler, IInternalCrashCatch
     @Override
     public void retryInitialisation()
     {
-        CrashCatch.Initialise(CrashCatch.context, CrashCatch.APIKey, CrashCatch.ProjectID, CrashCatch.AppVersion);
+        CrashCatch.Initialise(CrashCatch.context, CrashCatch.APIKey, CrashCatch.ProjectID, CrashCatch.ProjectVersion);
     }
 
     public enum CrashSeverity {Low, Medium, High}
     protected static String APIKey;
     protected static String ProjectID;
-    protected static String AppVersion;
+    protected static String ProjectVersion;
     private static ICrashCatchResultHandler iCrashCatchResultHandler = null;
     protected static Thread.UncaughtExceptionHandler systemUnhandledExceptionHandler = null;
     public static ArrayList<HashMap<String, String>> retryCrashInfoQueue = new ArrayList<>();
 
 
-    private void InitialiseCrashCatch(Context context, String apiKey, String projectId, String appVersion)
+    private void InitialiseCrashCatch(Context context, String apiKey, String projectId, String projectVersion)
     {
         //this.setAPICall(API_Call.Initialise);
         //this.setICritiMonResultHandler(this);
@@ -52,13 +52,13 @@ public class CrashCatch implements ICrashCatchResultHandler, IInternalCrashCatch
         CrashCatch.context = context;
         CrashCatch.APIKey = apiKey;
         CrashCatch.ProjectID = projectId;
-        CrashCatch.AppVersion = appVersion;
+        CrashCatch.ProjectVersion = projectVersion;
         //List<NameValuePair> postData = new ArrayList<>();
         HashMap<String, String> postData = new HashMap<>();
         postData.put("APIKey", apiKey);
         postData.put("ProjectID", projectId);
         postData.put("DeviceID", Helpers.getDeviceUID(context));
-        postData.put("AppVersion", appVersion);
+        postData.put("ProjectVersion", projectVersion);
         APIHandler apiHandler = new APIHandler(APIHandler.API_Call.Initialise, this);
         apiHandler.execute(postData);
     }
