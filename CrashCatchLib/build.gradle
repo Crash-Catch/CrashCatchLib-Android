@@ -16,15 +16,15 @@ if (rootProject.ext.publishToMavenLocal) {
 }
 else
 {
-    apply plugin: 'com.github.dcendents.android-maven'
+    //apply plugin: 'com.github.dcendents.android-maven'
 }
 
 archivesBaseName="CrashCatchLib"
-version '2.0.2'
+version '2.0.4'
 group 'com.BoardiesITSolutions'
 
 android {
-    compileSdkVersion 31
+    compileSdkVersion 32
 
     packagingOptions {
         exclude 'META-INF/LICENSE.txt'
@@ -34,9 +34,9 @@ android {
     defaultConfig {
         //applicationId "com.BoardiesITSolutions.Library"
         minSdkVersion 17
-        targetSdkVersion 29
-        versionCode 3
-        versionName = '2.2'
+        targetSdkVersion 32
+        versionCode 4
+        versionName = '2.4'
     }
 
     flavorDimensions "debug", "release"

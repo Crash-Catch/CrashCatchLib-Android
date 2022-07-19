@@ -4,6 +4,9 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/CrashCatchLib-Android.iml" filepath="$PROJECT_DIR$/.idea/modules/CrashCatchLib-Android.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/CrashCatchLib/CrashCatchLib-Android.CrashCatchLib.iml" filepath="$PROJECT_DIR$/.idea/modules/CrashCatchLib/CrashCatchLib-Android.CrashCatchLib.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/CrashCatchLib/CrashCatchLib-Android.CrashCatchLib.androidTest.iml" filepath="$PROJECT_DIR$/.idea/modules/CrashCatchLib/CrashCatchLib-Android.CrashCatchLib.androidTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/CrashCatchLib/CrashCatchLib-Android.CrashCatchLib.main.iml" filepath="$PROJECT_DIR$/.idea/modules/CrashCatchLib/CrashCatchLib-Android.CrashCatchLib.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/CrashCatchLib/CrashCatchLib-Android.CrashCatchLib.unitTest.iml" filepath="$PROJECT_DIR$/.idea/modules/CrashCatchLib/CrashCatchLib-Android.CrashCatchLib.unitTest.iml" />
     </modules>
   </component>
 </project>
