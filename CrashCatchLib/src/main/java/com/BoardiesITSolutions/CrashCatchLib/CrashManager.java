@@ -264,7 +264,8 @@ class CrashManager implements ICrashCatchResultHandler, IInternalCrashCatchRespo
             }
             else
             {
-                Log.e("CrashCatch", "CrashCatch not initialised. Call CrashCatch.Initialise(context, api_key, app_id) before sending a crash");
+                CrashCatch.retryCrashInfoQueue.add(postData);
+                Log.e("CrashCatch", "CrashCatch not initialised. Call CrashCatch.Initialise(context, api_key, app_id) before sending a crash. Crash added to queue so will be sent upon successful initialisation");
             }
         }
         catch (NullPointerException ex)
