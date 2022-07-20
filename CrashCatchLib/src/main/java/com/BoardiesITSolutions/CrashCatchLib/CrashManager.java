@@ -30,12 +30,21 @@ class CrashManager implements ICrashCatchResultHandler, IInternalCrashCatchRespo
     @Override
     public void retryCrashAfterInitialisation()
     {
-        if (CrashCatch.retryCrashInfoQueue.size() > 0) {
-            for (int i = CrashCatch.retryCrashInfoQueue.size() - 1; i >= 0; i--) {
-                APIHandler apiHandler = new APIHandler(APIHandler.API_Call.SendCrash, null, this);
-                apiHandler.execute(CrashCatch.retryCrashInfoQueue.get(i));
-                CrashCatch.retryCrashInfoQueue.remove(i);
+        Log.d("CrashManager", "Retrying crash crash after initialisation. Length is: " + CrashCatch.retryCrashInfoQueue.size());
+        if (CrashCatch.CrashCatchInitialised)
+        {
+            Log.d("CrashManager", "Crash catch is initialised so sending requests");
+            if (CrashCatch.retryCrashInfoQueue.size() > 0) {
+                for (int i = CrashCatch.retryCrashInfoQueue.size() - 1; i >= 0; i--) {
+                    APIHandler apiHandler = new APIHandler(APIHandler.API_Call.SendCrash, this, this);
+                    apiHandler.execute(CrashCatch.retryCrashInfoQueue.get(i));
+                    CrashCatch.retryCrashInfoQueue.remove(i);
+                }
             }
+        }
+        else
+        {
+            Log.d("CrashManager", "Crash catch is not initialised, not sending requests");
         }
     }
 
@@ -193,42 +202,35 @@ class CrashManager implements ICrashCatchResultHandler, IInternalCrashCatchRespo
 
     private void addDeviceDataToPostFields()
     {
-        if (CrashCatch.CrashCatchInitialised)
+        try
         {
-            try
-            {
-                //Get the Device ID
-                postData.put("DeviceID", Helpers.getDeviceUID(CrashCatch.context));
+            //Get the Device ID
+            postData.put("DeviceID", Helpers.getDeviceUID(CrashCatch.context));
 
-                PackageInfo pInfo = CrashCatch.context.getPackageManager().getPackageInfo(CrashCatch.context.getPackageName(), 0);
-                postData.put("VersionName", pInfo.versionName);
-                postData.put("DeviceType", "Android");
-                postData.put("ROMBuild", android.os.Build.DISPLAY);
-                postData.put("KernelVersion", System.getProperty("os.version"));
-                postData.put("DeviceBrand", android.os.Build.BRAND);
-                postData.put("DeviceModel", android.os.Build.MODEL);
-                postData.put("APILevel", String.valueOf(android.os.Build.VERSION.SDK_INT));
-                postData.put("ScreenResolution", CrashCatch.context.getResources().getDisplayMetrics().widthPixels + " x " + CrashCatch.context.getResources().getDisplayMetrics().heightPixels);
-                postData.put("Locale", Locale.getDefault().getDisplayLanguage().toString());
-                TelephonyManager tMgr = (TelephonyManager) CrashCatch.context.getSystemService(CrashCatch.context.TELEPHONY_SERVICE);
-                String mobileOperator = tMgr.getNetworkOperatorName();
-                if (mobileOperator == null || mobileOperator.equals(""))
-                {
-                    postData.put("MobileNetwork", "N/A");
-                }
-                else
-                {
-                    postData.put("MobileNetwork", mobileOperator);
-                }
-            }
-            catch (PackageManager.NameNotFoundException e)
+            PackageInfo pInfo = CrashCatch.context.getPackageManager().getPackageInfo(CrashCatch.context.getPackageName(), 0);
+            postData.put("VersionName", pInfo.versionName);
+            postData.put("DeviceType", "Android");
+            postData.put("ROMBuild", android.os.Build.DISPLAY);
+            postData.put("KernelVersion", System.getProperty("os.version"));
+            postData.put("DeviceBrand", android.os.Build.BRAND);
+            postData.put("DeviceModel", android.os.Build.MODEL);
+            postData.put("APILevel", String.valueOf(android.os.Build.VERSION.SDK_INT));
+            postData.put("ScreenResolution", CrashCatch.context.getResources().getDisplayMetrics().widthPixels + " x " + CrashCatch.context.getResources().getDisplayMetrics().heightPixels);
+            postData.put("Locale", Locale.getDefault().getDisplayLanguage().toString());
+            TelephonyManager tMgr = (TelephonyManager) CrashCatch.context.getSystemService(CrashCatch.context.TELEPHONY_SERVICE);
+            String mobileOperator = tMgr.getNetworkOperatorName();
+            if (mobileOperator == null || mobileOperator.equals(""))
             {
-                e.printStackTrace();
+                postData.put("MobileNetwork", "N/A");
+            }
+            else
+            {
+                postData.put("MobileNetwork", mobileOperator);
             }
         }
-        else
+        catch (PackageManager.NameNotFoundException e)
         {
-            Log.e("CrashCatch", "CrashCatch not initialised. Call CrashCatch.Initialise(context, api_key, app_id) before sending a crash");
+            e.printStackTrace();
         }
     }
 
@@ -255,10 +257,10 @@ class CrashManager implements ICrashCatchResultHandler, IInternalCrashCatchRespo
         try
         {
 
+            postData.put("APIKey", CrashCatch.APIKey);
+            postData.put("ProjectID", CrashCatch.ProjectID);
             if (CrashCatch.CrashCatchInitialised)
             {
-                postData.put("APIKey", CrashCatch.APIKey);
-                postData.put("ProjectID", CrashCatch.ProjectID);
                 APIHandler apiHandler = new APIHandler(APIHandler.API_Call.SendCrash, this, this);
                 apiHandler.execute(postData);
             }
@@ -277,6 +279,7 @@ class CrashManager implements ICrashCatchResultHandler, IInternalCrashCatchRespo
     @Override
     public void processResult(APIHandler.API_Call api_call, JSONObject resultObj)
     {
+        Log.d("Crash Manager", "Processing result");
         if (resultObj != null)
         {
             Log.d("CrashCatch", resultObj.toString());
@@ -299,7 +302,9 @@ class CrashManager implements ICrashCatchResultHandler, IInternalCrashCatchRespo
                                 public void processResult(APIHandler.API_Call api_call, JSONObject resultObj)
                                 {
                                     //Now resend the crash
+
                                     sendCrashData();
+                                    retryCrashAfterInitialisation();
                                 }
                             });
                         }

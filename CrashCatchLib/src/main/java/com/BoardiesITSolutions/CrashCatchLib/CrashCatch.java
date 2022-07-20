@@ -10,6 +10,8 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import kotlin.NotImplementedError;
+
 /**
  * Copyright (C) Chris Board - Boardies IT Solutions
  * August 2019
@@ -26,7 +28,7 @@ public class CrashCatch implements ICrashCatchResultHandler, IInternalCrashCatch
     @Override
     public void retryCrashAfterInitialisation()
     {
-        //Not needed here
+        Log.w("CrashCatch", "Retry crash after initialisation shouldn't be called from Crash Catch");
     }
 
     @Override
@@ -48,6 +50,7 @@ public class CrashCatch implements ICrashCatchResultHandler, IInternalCrashCatch
     {
         //this.setAPICall(API_Call.Initialise);
         //this.setICritiMonResultHandler(this);
+        Log.d("CrashCatch", "Going to initialise crash catch");
         setUnhandledExceptionHandler();
         CrashCatch.context = context;
         CrashCatch.APIKey = apiKey;
@@ -115,8 +118,10 @@ public class CrashCatch implements ICrashCatchResultHandler, IInternalCrashCatch
     @Override
     public void processResult(APIHandler.API_Call api_call, JSONObject resultObj)
     {
+        Log.d("Crash Catch","Processing Result");
         if (resultObj != null)
         {
+            Log.d("CrashCatch", "Processing result object: " + resultObj.toString());
             try
             {
                 if (resultObj.getInt("result") == 0)
@@ -127,7 +132,9 @@ public class CrashCatch implements ICrashCatchResultHandler, IInternalCrashCatch
                     {
                         CrashCatch.iCrashCatchResultHandler.processResult(api_call, resultObj);
                     }
+
                     CrashCatch.iCrashCatchResultHandler = null;
+                    new CrashManager().retryCrashAfterInitialisation();
                 }
                 else
                 {
