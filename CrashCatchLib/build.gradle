@@ -20,7 +20,7 @@ else
 }
 
 archivesBaseName="CrashCatchLib"
-version '2.0.5'
+version '2.0.6'
 group 'com.Devso'
 
 android {
@@ -35,8 +35,8 @@ android {
         //applicationId "com.BoardiesITSolutions.Library"
         minSdkVersion 17
         targetSdkVersion 32
-        versionCode 5
-        versionName = '2.5'
+        versionCode 6
+        versionName = '2.6'
     }
 
     flavorDimensions "debug", "release"

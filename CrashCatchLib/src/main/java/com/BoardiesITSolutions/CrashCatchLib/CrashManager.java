@@ -308,6 +308,7 @@ class CrashManager implements ICrashCatchResultHandler, IInternalCrashCatchRespo
                 else
                 {
                     Log.e("CrashCatch", resultObj.getString("message"));
+                    retryCrashAfterInitialisation();
                 }
             }
             catch (JSONException e)
